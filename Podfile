@@ -3,6 +3,7 @@ platform :ios, '7.0'
 pod 'AFNetworking', '~>2.2.2'
 #pod 'UIColorHelpers',  '~>1.0.0'
 pod 'GoogleAnalytics-iOS-SDK', '~>3.0.6'
+pod 'Google-Maps-iOS-SDK', '~> 1.7.2'
 pod 'Bugsnag', '~>3.1.1'
 
 post_install do |installer|

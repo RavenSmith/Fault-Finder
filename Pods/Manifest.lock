@@ -19,16 +19,19 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - Bugsnag (3.1.2)
+  - Google-Maps-iOS-SDK (1.7.2)
   - GoogleAnalytics-iOS-SDK (3.0.9)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2.2)
   - Bugsnag (~> 3.1.1)
+  - Google-Maps-iOS-SDK (~> 1.7.2)
   - GoogleAnalytics-iOS-SDK (~> 3.0.6)
 
 SPEC CHECKSUMS:
   AFNetworking: caca0799b310f0c3bf1fc1af45145fc96972bcab
   Bugsnag: fa1255f70b6f7feea22f8ee538833382ae846c27
+  Google-Maps-iOS-SDK: 64e696638bb64d28fa2d51390b4b9aaad98d11cf
   GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
 
 COCOAPODS: 0.37.1

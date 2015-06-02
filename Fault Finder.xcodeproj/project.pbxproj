@@ -15,6 +15,9 @@
 		0382B7141B1A1F57004B4C0D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0382B7131B1A1F57004B4C0D /* Images.xcassets */; };
 		0382B7171B1A1F57004B4C0D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0382B7151B1A1F57004B4C0D /* LaunchScreen.xib */; };
 		0382B7231B1A1F57004B4C0D /* Fault_FinderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0382B7221B1A1F57004B4C0D /* Fault_FinderTests.m */; };
+		03CFEE3E1B1DE3D600A11573 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CFEE3C1B1DE3D600A11573 /* TableViewController.m */; };
+		03CFEE3F1B1DE3D600A11573 /* TableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03CFEE3D1B1DE3D600A11573 /* TableViewController.xib */; };
+		03EB3AAC1B1CE55D005988CF /* EarthquakeDataParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 03EB3AAB1B1CE55D005988CF /* EarthquakeDataParser.m */; };
 		1C9B54972FE34EBBA8E1EB3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1076E58B950744F7ABB53EB1 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +46,11 @@
 		0382B71C1B1A1F57004B4C0D /* Fault FinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fault FinderTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0382B7211B1A1F57004B4C0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0382B7221B1A1F57004B4C0D /* Fault_FinderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fault_FinderTests.m; sourceTree = "<group>"; };
+		03CFEE3B1B1DE3D600A11573 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = "Views/Default Home Screen/TableViewController.h"; sourceTree = "<group>"; };
+		03CFEE3C1B1DE3D600A11573 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TableViewController.m; path = "Views/Default Home Screen/TableViewController.m"; sourceTree = "<group>"; };
+		03CFEE3D1B1DE3D600A11573 /* TableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TableViewController.xib; path = "Views/Default Home Screen/TableViewController.xib"; sourceTree = "<group>"; };
+		03EB3AAA1B1CE55D005988CF /* EarthquakeDataParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EarthquakeDataParser.h; path = DataController/EarthquakeDataParser.h; sourceTree = "<group>"; };
+		03EB3AAB1B1CE55D005988CF /* EarthquakeDataParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EarthquakeDataParser.m; path = DataController/EarthquakeDataParser.m; sourceTree = "<group>"; };
 		1076E58B950744F7ABB53EB1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		72BF7CB6000E85F36DCADC1E /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F74C62734317852A3BD84CE9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +98,8 @@
 		0382B7021B1A1F57004B4C0D /* Fault Finder */ = {
 			isa = PBXGroup;
 			children = (
+				03EB3AA91B1CE212005988CF /* DataController */,
+				03CFEE401B1DE3DD00A11573 /* Views */,
 				0382B7071B1A1F57004B4C0D /* AppDelegate.h */,
 				0382B7081B1A1F57004B4C0D /* AppDelegate.m */,
 				0382B70D1B1A1F57004B4C0D /* ViewController.h */,
@@ -127,6 +137,33 @@
 				0382B7211B1A1F57004B4C0D /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		03CFEE401B1DE3DD00A11573 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				03CFEE411B1DE3F000A11573 /* Default Home Screen */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		03CFEE411B1DE3F000A11573 /* Default Home Screen */ = {
+			isa = PBXGroup;
+			children = (
+				03CFEE3B1B1DE3D600A11573 /* TableViewController.h */,
+				03CFEE3C1B1DE3D600A11573 /* TableViewController.m */,
+				03CFEE3D1B1DE3D600A11573 /* TableViewController.xib */,
+			);
+			name = "Default Home Screen";
+			sourceTree = "<group>";
+		};
+		03EB3AA91B1CE212005988CF /* DataController */ = {
+			isa = PBXGroup;
+			children = (
+				03EB3AAA1B1CE55D005988CF /* EarthquakeDataParser.h */,
+				03EB3AAB1B1CE55D005988CF /* EarthquakeDataParser.m */,
+			);
+			name = DataController;
 			sourceTree = "<group>";
 		};
 		E3E5222C472BA269BC1DBEFC /* Pods */ = {
@@ -232,6 +269,7 @@
 				0382B7121B1A1F57004B4C0D /* Main.storyboard in Resources */,
 				0382B7171B1A1F57004B4C0D /* LaunchScreen.xib in Resources */,
 				0382B7141B1A1F57004B4C0D /* Images.xcassets in Resources */,
+				03CFEE3F1B1DE3D600A11573 /* TableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +335,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03EB3AAC1B1CE55D005988CF /* EarthquakeDataParser.m in Sources */,
+				03CFEE3E1B1DE3D600A11573 /* TableViewController.m in Sources */,
 				0382B7091B1A1F57004B4C0D /* AppDelegate.m in Sources */,
 				0382B70C1B1A1F57004B4C0D /* Fault_Finder.xcdatamodeld in Sources */,
 				0382B70F1B1A1F57004B4C0D /* ViewController.m in Sources */,
