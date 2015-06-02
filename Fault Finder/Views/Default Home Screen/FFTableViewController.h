@@ -1,5 +1,5 @@
 //
-//  TableViewController.h
+//  FFTableViewController.h
 //  Fault Finder
 //
 //  Created by Raven Smith on 6/2/15.
@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FFTableViewCell.h"
 
-@interface TableViewController : UITableViewController
+@interface FFTableViewController : UITableViewController
 
 @end
