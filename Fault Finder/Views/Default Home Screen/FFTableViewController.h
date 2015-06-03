@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EarthquakeDataParser.h"
 #import "FFTableViewCell.h"
 
-@interface FFTableViewController : UITableViewController
+@interface FFTableViewController : UITableViewController <EarthquakeDataParserDelegate>
 
 @end

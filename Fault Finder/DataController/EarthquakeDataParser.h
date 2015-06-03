@@ -6,14 +6,30 @@
 //  Copyright (c) 2015 Raven Smith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
+#import "AFHTTPSessionManager.h"
 
-@interface EarthquakeDataParser : NSObject
+@class EarthquakeDataParser;
 
+@protocol EarthquakeDataParserDelegate;
+
+@interface EarthquakeDataParser : AFHTTPSessionManager
+
+@property (nonatomic, weak) id<EarthquakeDataParserDelegate>delegate;
 @property (nonatomic, strong) NSString * timestamp;
+@property (nonatomic, strong) NSString * searchTerm;
 @property (nonatomic, strong) NSDictionary * earthquakes;
 
--(void)initWithTimestamp:(NSDate *)date;
++ (EarthquakeDataParser *) sharedEarthquakeDataParser;
+- (instancetype) initWithBaseURL:(NSURL *)url;
 -(void)fetchEarthquakeData;
+-(void)addTimestamp;
 
 @end
+
+@protocol EarthquakeDataParserDelegate <NSObject>
+
+@optional
+
+@end
+

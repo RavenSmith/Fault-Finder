@@ -7,14 +7,38 @@
 //
 
 #import "EarthquakeDataParser.h"
-#import "AFNetworking.h"
+
+
+static NSString * const USGSOnlineURLString = @"http://earthquake.usgs.gov/fdsnws/event/1/query?";
 
 @implementation EarthquakeDataParser
 
-static NSString * const leadingURLHalf = @"http://comcat.cr.usgs.gov/fdsnws/event/1/query?starttime=";
-static NSString * const trailingURLHalf = @"&format=geojson&minmagnitude=1&orderby=time";
++ (EarthquakeDataParser *) sharedEarthquakeDataParser {
+    static EarthquakeDataParser *_sharedEarthquakeParser = nil;
+    
+    static dispatch_once_t once;
+    
+    dispatch_once(&once, ^{
+        _sharedEarthquakeParser = [[self alloc] initWithBaseURL:[NSURL URLWithString:USGSOnlineURLString]];
+    });
+    
+    return _sharedEarthquakeParser;
+}
 
--(void)initWithTimestamp:(NSDate *)date {
+- (instancetype) initWithBaseURL:(NSURL *)url {
+    
+    self = [super initWithBaseURL:url];
+    
+    if (self) {
+        self.responseSerializer = [AFJSONResponseSerializer serializer];
+        self.requestSerializer = [AFJSONRequestSerializer serializer];
+        [self addTimestamp];
+    }
+    
+    return self;
+}
+
+-(void)addTimestamp {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     
@@ -24,20 +48,15 @@ static NSString * const trailingURLHalf = @"&format=geojson&minmagnitude=1&order
 }
 
 -(void)fetchEarthquakeData {
-    NSString *frontURLPiece = [NSString stringWithFormat:_timestamp, leadingURLHalf];
-    NSString *wholeURL = [frontURLPiece stringByAppendingString:trailingURLHalf];
+    NSDictionary *params = @{@"starttime": _timestamp, @"format": @"geojson", @"minmagnitude": @"1", @"orderby": @"time" };
     
-    NSURL *url = [NSURL URLWithString:wholeURL];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:USGSOnlineURLString parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
         
         _earthquakes = (NSDictionary *) responseObject;
         NSLog(@"fetched earthquake data");
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
         
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Error Retrieving Earthquake Data"
@@ -46,9 +65,36 @@ static NSString * const trailingURLHalf = @"&format=geojson&minmagnitude=1&order
                                   cancelButtonTitle:@"Ok"
                                   otherButtonTitles: nil];
         [alertView show];
+        
     }];
 
-    [operation start];
+    
+    
+//    NSURL *testURL = [NSURL URLWithString:@"http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minmagnitude=1&orderby=time&starttime=2015-06-01"];
+//    
+//    
+//    //NSURL *url = [NSURL URLWithString:wholeURL];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:testURL];
+//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+//    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+//    
+//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+//        _earthquakes = (NSDictionary *) responseObject;
+//        NSLog(@"fetched earthquake data");
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//        UIAlertView *alertView = [[UIAlertView alloc]
+//                                  initWithTitle:@"Error Retrieving Earthquake Data"
+//                                  message:[error localizedDescription]
+//                                  delegate:nil
+//                                  cancelButtonTitle:@"Ok"
+//                                  otherButtonTitles: nil];
+//        [alertView show];
+//    }];
+//
+//    [operation start];
     
 }
 

@@ -26,9 +26,9 @@
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
-    NSLog(@"am I myself?");
+
     if (self) {
-        NSLog(@"yes I am");
+
         [self setup];
     }
     
