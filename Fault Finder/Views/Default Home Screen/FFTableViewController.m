@@ -75,7 +75,7 @@
     
     if ([_quakes count] > 0) {
         NSDictionary *properties = [_quakes[indexPath.row ]  objectForKey:@"properties"];
-        NSLog(@"properties for cell %i: %@", indexPath.row, properties);
+        [cell configureCell:properties];
         
     }
     

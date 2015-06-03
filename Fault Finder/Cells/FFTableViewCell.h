@@ -16,6 +16,6 @@
 @property (nonatomic, strong) NSString * titleText;
 @property (nonatomic, strong) NSString * detailText;
 
-//-(void)configureCell;
+-(void)configureCell: (NSDictionary *) properties;
 
 @end
