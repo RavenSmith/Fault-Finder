@@ -18,7 +18,7 @@
 @property (nonatomic, weak) id<EarthquakeDataParserDelegate>delegate;
 @property (nonatomic, strong) NSString * timestamp;
 @property (nonatomic, strong) NSString * searchTerm;
-@property (nonatomic, strong) NSDictionary * earthquakes;
+@property (nonatomic, strong) NSArray * earthquakes;
 
 + (EarthquakeDataParser *) sharedEarthquakeDataParser;
 - (instancetype) initWithBaseURL:(NSURL *)url;

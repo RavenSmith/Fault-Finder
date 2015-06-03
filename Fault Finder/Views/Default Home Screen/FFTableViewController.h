@@ -12,4 +12,7 @@
 
 @interface FFTableViewController : UITableViewController <EarthquakeDataParserDelegate>
 
+@property (nonatomic, strong) NSArray * quakes;
+
+
 @end

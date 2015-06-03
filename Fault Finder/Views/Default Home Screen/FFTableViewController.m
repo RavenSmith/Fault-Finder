@@ -26,9 +26,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTable"
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(checkRes:) name:@"updateTable" object:nil];
+    
     EarthquakeDataParser *parser = [EarthquakeDataParser sharedEarthquakeDataParser];
     parser.delegate = self;
     [parser fetchEarthquakeData];
+
+
     
     [self.tableView registerClass:[FFTableViewCell class] forCellReuseIdentifier:@"ffCell"];
 }
@@ -42,14 +49,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    // Return the number of rows in the section.
-    return 1;
+    
+    NSLog(@"what got imported? %u quakes", [_quakes count]);
+    
+    if ([_quakes count] < 1) {
+        return 1;
+    } else {
+        return [_quakes count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -62,10 +73,25 @@
         
     }
     
+    if ([_quakes count] > 0) {
+        NSDictionary *properties = [_quakes[indexPath.row ]  objectForKey:@"properties"];
+        NSLog(@"properties for cell %i: %@", indexPath.row, properties);
+        
+    }
     
-
         
     return cell;
+}
+
+-(void)checkRes:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"updateTable"])
+    {
+        EarthquakeDataParser *sharedEarthquakeDataParser = [EarthquakeDataParser sharedEarthquakeDataParser];
+        _quakes = sharedEarthquakeDataParser.earthquakes;
+        
+        [self.tableView reloadData];
+    }
 }
 
 
