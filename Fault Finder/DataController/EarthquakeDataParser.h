@@ -19,11 +19,16 @@
 @property (nonatomic, strong) NSString * timestamp;
 @property (nonatomic, strong) NSString * searchTerm;
 @property (nonatomic, strong) NSArray * earthquakes;
+@property (nonatomic, strong) NSMutableDictionary *params;
+@property (nonatomic, strong) UIActivityIndicatorView * waiting;
 
 + (EarthquakeDataParser *) sharedEarthquakeDataParser;
 - (instancetype) initWithBaseURL:(NSURL *)url;
 -(void)fetchEarthquakeData;
 -(void)addTimestamp;
+-(void)editParams: (NSString *) order;
+-(void)editHistory: (NSString *) howFarBack;
+-(void)editMagnitudes: (NSString *) whatMagnitude;
 
 @end
 

@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface LocationManager : NSObject
+
+@interface LocationManager : NSObject <CLLocationManagerDelegate>
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *currentLocation;
+@property (weak, nonatomic) id delegate;
+
++(LocationManager *) sharedInstance;
+- (void)startUpdatingLocation;
 
 @end

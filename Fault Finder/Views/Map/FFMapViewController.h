@@ -1,5 +1,5 @@
 //
-//  EarthquakeMapViewController.h
+//  FFMapViewController.h
 //  Fault Finder
 //
 //  Created by Raven Smith on 6/5/15.
@@ -7,7 +7,14 @@
 //
 
 #import "ViewController.h"
+#import "EarthquakeDataParser.h"
+#import <GoogleMaps/GoogleMaps.h>
+#import "FFActivityViewController.h"
 
-@interface EarthquakeMapViewController : ViewController
+
+@interface FFMapViewController : ViewController <EarthquakeDataParserDelegate, GMSMapViewDelegate>
+
+@property (strong, nonatomic) FFActivityViewController *waiting;
+
 
 @end

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import <GoogleMaps.h>
 
 
 @interface AppDelegate ()
@@ -19,7 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
  
-    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = NO;
+    [GMSServices provideAPIKey:@"AIzaSyCzfIcHN9C2UCHsiBGD5mBayuX5wsUaRyo"];
     return YES;
 }
 

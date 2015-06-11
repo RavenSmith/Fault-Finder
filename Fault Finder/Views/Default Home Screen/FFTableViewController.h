@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "EarthquakeDataParser.h"
 #import "FFTableViewCell.h"
+#import "FFActivityViewController.h"
 
 @interface FFTableViewController : UITableViewController <EarthquakeDataParserDelegate>
 
 @property (nonatomic, strong) NSArray * quakes;
+@property (nonatomic, strong) FFActivityViewController* waiting;
 
+-(void) changeView: (int) option;
 
 @end

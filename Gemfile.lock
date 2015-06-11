@@ -65,3 +65,6 @@ DEPENDENCIES
   rake (= 10.3.2)
   rest-client (= 1.6.7)
   xcpretty (= 0.1.5)
+
+BUNDLED WITH
+   1.10.3

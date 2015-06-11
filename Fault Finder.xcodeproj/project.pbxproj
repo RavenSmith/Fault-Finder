@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0354D0F91B20A63500370083 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0354D0F81B20A63500370083 /* LocationManager.m */; };
+		03559FAF1B21EBAC004CDF29 /* FFMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03559FAE1B21EBAC004CDF29 /* FFMapViewController.m */; };
+		03559FB41B2227AD004CDF29 /* FFActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03559FB21B2227AD004CDF29 /* FFActivityViewController.m */; };
+		03559FB51B2227AD004CDF29 /* FFActivityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03559FB31B2227AD004CDF29 /* FFActivityViewController.xib */; };
+		03559FBA1B25E607004CDF29 /* FFLostConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03559FB81B25E607004CDF29 /* FFLostConnectionViewController.m */; };
+		03559FBB1B25E607004CDF29 /* FFLostConnectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03559FB91B25E607004CDF29 /* FFLostConnectionViewController.xib */; };
 		0382B7061B1A1F57004B4C0D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0382B7051B1A1F57004B4C0D /* main.m */; };
 		0382B7091B1A1F57004B4C0D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0382B7081B1A1F57004B4C0D /* AppDelegate.m */; };
 		0382B70C1B1A1F57004B4C0D /* Fault_Finder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0382B70A1B1A1F57004B4C0D /* Fault_Finder.xcdatamodeld */; };
@@ -33,6 +39,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0354D0F71B20A63500370083 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationManager.h; path = Locations/LocationManager.h; sourceTree = "<group>"; };
+		0354D0F81B20A63500370083 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationManager.m; path = Locations/LocationManager.m; sourceTree = "<group>"; };
+		03559FAD1B21EBAC004CDF29 /* FFMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FFMapViewController.h; path = Views/Map/FFMapViewController.h; sourceTree = "<group>"; };
+		03559FAE1B21EBAC004CDF29 /* FFMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FFMapViewController.m; path = Views/Map/FFMapViewController.m; sourceTree = "<group>"; };
+		03559FB11B2227AD004CDF29 /* FFActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FFActivityViewController.h; path = ActivityIndicator/FFActivityViewController.h; sourceTree = "<group>"; };
+		03559FB21B2227AD004CDF29 /* FFActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FFActivityViewController.m; path = ActivityIndicator/FFActivityViewController.m; sourceTree = "<group>"; };
+		03559FB31B2227AD004CDF29 /* FFActivityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FFActivityViewController.xib; path = ActivityIndicator/FFActivityViewController.xib; sourceTree = "<group>"; };
+		03559FB71B25E607004CDF29 /* FFLostConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FFLostConnectionViewController.h; path = "Views/Lost Connection/FFLostConnectionViewController.h"; sourceTree = "<group>"; };
+		03559FB81B25E607004CDF29 /* FFLostConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FFLostConnectionViewController.m; path = "Views/Lost Connection/FFLostConnectionViewController.m"; sourceTree = "<group>"; };
+		03559FB91B25E607004CDF29 /* FFLostConnectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FFLostConnectionViewController.xib; path = "Views/Lost Connection/FFLostConnectionViewController.xib"; sourceTree = "<group>"; };
 		0382B7001B1A1F57004B4C0D /* Fault Finder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fault Finder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0382B7041B1A1F57004B4C0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0382B7051B1A1F57004B4C0D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,6 +94,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0354D0F61B20A50300370083 /* Locations */ = {
+			isa = PBXGroup;
+			children = (
+				0354D0F71B20A63500370083 /* LocationManager.h */,
+				0354D0F81B20A63500370083 /* LocationManager.m */,
+			);
+			name = Locations;
+			sourceTree = "<group>";
+		};
+		03559FAC1B21EAFE004CDF29 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				03559FAD1B21EBAC004CDF29 /* FFMapViewController.h */,
+				03559FAE1B21EBAC004CDF29 /* FFMapViewController.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		03559FB01B22274B004CDF29 /* ActivityIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				03559FB11B2227AD004CDF29 /* FFActivityViewController.h */,
+				03559FB21B2227AD004CDF29 /* FFActivityViewController.m */,
+				03559FB31B2227AD004CDF29 /* FFActivityViewController.xib */,
+			);
+			name = ActivityIndicator;
+			sourceTree = "<group>";
+		};
+		03559FB61B25E5AC004CDF29 /* Lost Connection */ = {
+			isa = PBXGroup;
+			children = (
+				03559FB71B25E607004CDF29 /* FFLostConnectionViewController.h */,
+				03559FB81B25E607004CDF29 /* FFLostConnectionViewController.m */,
+				03559FB91B25E607004CDF29 /* FFLostConnectionViewController.xib */,
+			);
+			name = "Lost Connection";
+			sourceTree = "<group>";
+		};
 		0382B6F71B1A1F57004B4C0D = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +155,8 @@
 		0382B7021B1A1F57004B4C0D /* Fault Finder */ = {
 			isa = PBXGroup;
 			children = (
+				03559FB01B22274B004CDF29 /* ActivityIndicator */,
+				0354D0F61B20A50300370083 /* Locations */,
 				03EB3AA91B1CE212005988CF /* DataController */,
 				03CFEE401B1DE3DD00A11573 /* Views */,
 				0382B7071B1A1F57004B4C0D /* AppDelegate.h */,
@@ -145,7 +201,8 @@
 		03CFEE401B1DE3DD00A11573 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				03CFEE421B1E0FE300A11573 /* Cells */,
+				03559FB61B25E5AC004CDF29 /* Lost Connection */,
+				03559FAC1B21EAFE004CDF29 /* Map */,
 				03CFEE411B1DE3F000A11573 /* Default Home Screen */,
 			);
 			name = Views;
@@ -157,6 +214,7 @@
 				03CFEE3B1B1DE3D600A11573 /* FFTableViewController.h */,
 				03CFEE3C1B1DE3D600A11573 /* FFTableViewController.m */,
 				03CFEE3D1B1DE3D600A11573 /* TableViewController.xib */,
+				03CFEE421B1E0FE300A11573 /* Cells */,
 			);
 			name = "Default Home Screen";
 			sourceTree = "<group>";
@@ -281,6 +339,8 @@
 			files = (
 				0382B7121B1A1F57004B4C0D /* Main.storyboard in Resources */,
 				0382B7171B1A1F57004B4C0D /* LaunchScreen.xib in Resources */,
+				03559FBB1B25E607004CDF29 /* FFLostConnectionViewController.xib in Resources */,
+				03559FB51B2227AD004CDF29 /* FFActivityViewController.xib in Resources */,
 				0382B7141B1A1F57004B4C0D /* Images.xcassets in Resources */,
 				03CFEE3F1B1DE3D600A11573 /* TableViewController.xib in Resources */,
 			);
@@ -348,9 +408,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03559FBA1B25E607004CDF29 /* FFLostConnectionViewController.m in Sources */,
+				0354D0F91B20A63500370083 /* LocationManager.m in Sources */,
+				03559FB41B2227AD004CDF29 /* FFActivityViewController.m in Sources */,
 				03EB3AAC1B1CE55D005988CF /* EarthquakeDataParser.m in Sources */,
 				03CFEE3E1B1DE3D600A11573 /* FFTableViewController.m in Sources */,
 				03CFEE481B1E107900A11573 /* FFTableViewCell.m in Sources */,
+				03559FAF1B21EBAC004CDF29 /* FFMapViewController.m in Sources */,
 				0382B7091B1A1F57004B4C0D /* AppDelegate.m in Sources */,
 				0382B70C1B1A1F57004B4C0D /* Fault_Finder.xcdatamodeld in Sources */,
 				0382B70F1B1A1F57004B4C0D /* ViewController.m in Sources */,

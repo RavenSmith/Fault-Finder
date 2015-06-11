@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface FFTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIImage * icon;
@@ -16,6 +17,6 @@
 @property (nonatomic, strong) NSString * titleText;
 @property (nonatomic, strong) NSString * detailText;
 
--(void)configureCell: (NSDictionary *) properties;
+-(void)configureCell: (NSDictionary *)properties : (NSDictionary *)locale;
 
 @end

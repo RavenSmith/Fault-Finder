@@ -1,35 +1,27 @@
 //
-//  FFActivityViewController.m
+//  FFLostConnectionViewController.m
 //  Fault Finder
 //
-//  Created by Raven Smith on 6/5/15.
+//  Created by Raven Smith on 6/8/15.
 //  Copyright (c) 2015 Raven Smith. All rights reserved.
 //
 
-#import "FFActivityViewController.h"
+#import "FFLostConnectionViewController.h"
 
-@interface FFActivityViewController ()
+@interface FFLostConnectionViewController ()
 
 @end
 
-@implementation FFActivityViewController
+@implementation FFLostConnectionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSLog(@"initiating loading...");
-    _ai.hidden = NO;
-    _ai.center = self.view.center;
-    [_ai startAnimating];
+    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)stopLoading {
-    [_ai stopAnimating];
 }
 
 /*

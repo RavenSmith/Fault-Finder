@@ -10,4 +10,8 @@
 
 @interface FFActivityViewController : ViewController
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *ai;
+
+-(void)stopLoading;
+
 @end

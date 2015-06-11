@@ -7,6 +7,7 @@
 //
 
 #import "FFTableViewController.h"
+#import "LocationManager.h"
 
 
 
@@ -26,18 +27,47 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTable"
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(checkRes:) name:@"updateTable" object:nil];
     
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTableFailed"
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(checkRes:) name:@"updateTableFailed" object:nil];
+    
+    _waiting = [[FFActivityViewController alloc]init];
+    _waiting.view.center = self.tableView.center;
+    [self.tableView addSubview:_waiting.view];
+    
     EarthquakeDataParser *parser = [EarthquakeDataParser sharedEarthquakeDataParser];
     parser.delegate = self;
     [parser fetchEarthquakeData];
-
-
+    
+    LocationManager *locationManager = [LocationManager sharedInstance];
+    [locationManager addObserver:self forKeyPath:@"currentLocation" options:NSKeyValueObservingOptionNew context:nil];
+    [locationManager startUpdatingLocation];
     
     [self.tableView registerClass:[FFTableViewCell class] forCellReuseIdentifier:@"ffCell"];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
+    
+    NSDate *currentDate = [[NSDate alloc]init];
+    
+    EarthquakeDataParser *parser = [EarthquakeDataParser sharedEarthquakeDataParser];
+    parser.delegate = self;
+    [parser editHistory:[dateFormatter stringFromDate:currentDate]];
+    [parser editMagnitudes:@"1"];
+    [parser fetchEarthquakeData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,8 +83,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    NSLog(@"what got imported? %u quakes", [_quakes count]);
     
     if ([_quakes count] < 1) {
         return 1;
@@ -75,7 +103,8 @@
     
     if ([_quakes count] > 0) {
         NSDictionary *properties = [_quakes[indexPath.row ]  objectForKey:@"properties"];
-        [cell configureCell:properties];
+        NSDictionary *locale = [_quakes [indexPath.row] objectForKey:@"geometry"];
+        [cell configureCell:properties :locale];
         
     }
     
@@ -91,9 +120,132 @@
         _quakes = sharedEarthquakeDataParser.earthquakes;
         
         [self.tableView reloadData];
+    } else if ([[notification name] isEqualToString:@"updateTableFailed"]) {
+        NSLog(@"failed to update");
+    }
+    
+    [_waiting.view removeFromSuperview];
+}
+
+
+- (IBAction)actionBtnPressed:(UIBarButtonItem *)sender {
+    UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:@"Order Earthquakes By" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* mag = [UIAlertAction actionWithTitle:@"Largest Magnitude" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self changeView:1];
+                                                          
+                                                          }];
+    
+    UIAlertAction* time = [UIAlertAction actionWithTitle:@"Most Recent" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                          
+                                                              [self changeView:2];
+                                                          
+                                                          }];
+    
+    UIAlertAction* proximity = [UIAlertAction actionWithTitle:@"Proximity" style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * action) {
+                                                     
+                                                     [self changeView:3];
+                                                     
+                                                 }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                 handler:^(UIAlertAction * action) {}];
+    
+    [actionSheet addAction:proximity];
+    [actionSheet addAction:mag];
+    [actionSheet addAction:time];
+    [actionSheet addAction:cancel];
+    
+    [self presentViewController:actionSheet animated:YES completion:nil];
+
+    
+}
+
+-(void) changeView: (int) option {
+    
+    //[_waiting startAnimating];
+    
+    EarthquakeDataParser *sharedEarthquakeDataParser = [EarthquakeDataParser sharedEarthquakeDataParser];
+    if (option == 1) {
+       
+        [sharedEarthquakeDataParser editParams:@"magnitude"];
+        [sharedEarthquakeDataParser fetchEarthquakeData];
+
+        
+        
+    } else if (option == 2) {
+        
+        [sharedEarthquakeDataParser editParams:@"time"];
+        [sharedEarthquakeDataParser fetchEarthquakeData];
+
+        
+    } else {
+        
+        [self sortQuakesByProximity];
+    }
+    
+}
+
+-(void)sortQuakesByProximity {
+    
+    
+    LocationManager *locationManager = [LocationManager sharedInstance];
+    
+    
+    CLLocation *current = [[CLLocation alloc] initWithLatitude:locationManager.currentLocation.coordinate.latitude longitude:locationManager.currentLocation.coordinate.longitude];
+    
+    _quakes = [_quakes sortedArrayUsingComparator: ^(id a, id b) {
+        
+        NSDictionary *localeA = [a objectForKey:@"geometry"];
+        NSDictionary *localeB = [b objectForKey:@"geometry"];
+        
+        NSArray *coordinatesA = (NSArray *) [localeA objectForKey:@"coordinates"];
+        NSArray *coordinatesB = (NSArray *) [localeB objectForKey:@"coordinates"];
+
+        double latitudeA = [coordinatesA[1] doubleValue];
+        double longitudeA = [coordinatesA[0] doubleValue];
+        
+        double latitudeB = [coordinatesB[1] doubleValue];
+        double longitudeB = [coordinatesB[0] doubleValue];
+        
+        CLLocation *itemLocA = [[CLLocation alloc] initWithLatitude:latitudeA longitude:longitudeA];
+        CLLocation *itemLocB = [[CLLocation alloc] initWithLatitude:latitudeB longitude:longitudeB];
+        
+        
+        CLLocationDistance dist_a= [itemLocA distanceFromLocation: current];
+        CLLocationDistance dist_b= [itemLocB distanceFromLocation: current];
+
+        if ( dist_a < dist_b ) {
+            return (NSComparisonResult)NSOrderedAscending;
+        } else if ( dist_a > dist_b) {
+            return (NSComparisonResult)NSOrderedDescending;
+        } else {
+            return (NSComparisonResult)NSOrderedSame;
+        }
+    }];
+    
+    [self.tableView reloadData];
+    
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object  change:(NSDictionary *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"currentLocation"]) {
+
+        NSLog(@"location updated");
+        
     }
 }
 
+//- (void) locationManagerDidUpdateLocation:(CLLocation *)location {
+//    NSLog(@"location was updated in FFTableViewController.m");
+//    LocationManager *locationManager = [LocationManager sharedInstance];
+//    locationManager.currentLocation = location;
+//}
 
 /*
 // Override to support conditional editing of the table view.
