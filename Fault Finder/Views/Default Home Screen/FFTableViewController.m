@@ -27,6 +27,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    _refresh = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshButtonPressed)];
+    
     _actionSheet = [UIAlertController alertControllerWithTitle:@"Order Earthquakes By" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction*mag = [UIAlertAction actionWithTitle:@"Largest Magnitude" style:UIAlertActionStyleDefault
@@ -156,6 +158,16 @@
     }
     
     [_waiting.view removeFromSuperview];
+}
+- (IBAction)refresh:(id)sender {
+
+
+    [self.tableView addSubview:_waiting.view];
+    
+    EarthquakeDataParser *parser = [EarthquakeDataParser sharedEarthquakeDataParser];
+    parser.delegate = self;
+    [parser fetchEarthquakeData];
+    
 }
 
 

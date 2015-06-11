@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSArray * quakes;
 @property (nonatomic, strong) FFActivityViewController* waiting;
 @property (nonatomic, strong) UIAlertController *actionSheet;
-
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *refresh;
 
 -(void) changeView: (int) option;
 
