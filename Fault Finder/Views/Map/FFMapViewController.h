@@ -15,6 +15,7 @@
 @interface FFMapViewController : ViewController <EarthquakeDataParserDelegate, GMSMapViewDelegate>
 
 @property (strong, nonatomic) FFActivityViewController *waiting;
+@property (nonatomic, strong) UIAlertController *actionSheet;
 
 
 @end

@@ -21,6 +21,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _actionSheet = [UIAlertController alertControllerWithTitle:@"History" message:@"Earthquakes happen often. Choose how far back you want to go." preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* today = [UIAlertAction actionWithTitle:@"✓ Today" style:UIAlertActionStyleDefault
+                                                  handler:^(UIAlertAction * action) {
+                                                      
+                                                      [self changeView:1];
+                                                      
+                                                  }];
+    
+    UIAlertAction* lastMonth = [UIAlertAction actionWithTitle:@"Last 30 Days" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          
+                                                          [self changeView:2];
+                                                          
+                                                      }];
+    
+    UIAlertAction* lastYear = [UIAlertAction actionWithTitle:@"Past Year (Major Quakes)" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+                                                         
+                                                         [self changeView:3];
+                                                         
+                                                     }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action) {}];
+    
+    [_actionSheet addAction:today];
+    [_actionSheet addAction:lastMonth];
+    [_actionSheet addAction:lastYear];
+    [_actionSheet addAction:cancel];
+    
     LocationManager *locationManager = [LocationManager sharedInstance];
 
     
@@ -50,20 +81,6 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated {
-    [mapView_ addSubview:_waiting.view];
-    
-    NSLog(@"user switched to map view");
-    
-    [mapView_ clear];
-
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTable"
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(checkRes:) name:@"updateTable" object:nil];
-    
-    
-    [self placeMarkers];
     
 }
 
@@ -171,38 +188,9 @@
 
 
 - (IBAction)actionBtnPressed:(UIBarButtonItem *)sender {
-    UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:@"History" message:@"Earthquakes happen often. Choose how far back you want to go." preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction* today = [UIAlertAction actionWithTitle:@"Today" style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction * action) {
-                                                    
-                                                    [self changeView:1];
-                                                    
-                                                }];
     
-    UIAlertAction* lastMonth = [UIAlertAction actionWithTitle:@"Last 30 Days" style:UIAlertActionStyleDefault
-                                                 handler:^(UIAlertAction * action) {
-                                                     
-                                                     [self changeView:2];
-                                                     
-                                                 }];
-    
-    UIAlertAction* lastYear = [UIAlertAction actionWithTitle:@"Past Year (Major Quakes)" style:UIAlertActionStyleDefault
-                                                      handler:^(UIAlertAction * action) {
-                                                          
-                                                          [self changeView:3];
-                                                          
-                                                      }];
-    
-    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                   handler:^(UIAlertAction * action) {}];
-    
-    [actionSheet addAction:today];
-    [actionSheet addAction:lastMonth];
-    [actionSheet addAction:lastYear];
-    [actionSheet addAction:cancel];
-    
-    [self presentViewController:actionSheet animated:YES completion:nil];
+    [self presentViewController:_actionSheet animated:YES completion:nil];
     
     
 }
@@ -230,13 +218,73 @@
     compsMonth.month = -1;
     compsYear.year   = -1;
     
+    
+    UIAlertController* newController = [UIAlertController alertControllerWithTitle:@"History" message:@"Earthquakes happen often. Choose how far back you want to go." preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action) {}];
+    
     if (option == 1) {
         //view today's quakes
+        
+        UIAlertAction* today = [UIAlertAction actionWithTitle:@"✓ Today" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          
+                                                          [self changeView:1];
+                                                          
+                                                      }];
+        
+        UIAlertAction* lastMonth = [UIAlertAction actionWithTitle:@"Last 30 Days" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self changeView:2];
+                                                              
+                                                          }];
+        
+        UIAlertAction* lastYear = [UIAlertAction actionWithTitle:@"Past Year (Major Quakes)" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             
+                                                             [self changeView:3];
+                                                             
+                                                         }];
+        
+        [newController addAction:today];
+        [newController addAction:lastMonth];
+        [newController addAction:lastYear];
+        [newController addAction:cancel];
+        
         [parser editHistory:[dateFormatter stringFromDate:currentDate]];
         [parser editMagnitudes:@"1"];
         
     } else if (option == 2) {
         //view earthquakes in the past 30 days
+        
+        UIAlertAction* today = [UIAlertAction actionWithTitle:@"Today" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          
+                                                          [self changeView:1];
+                                                          
+                                                      }];
+        
+        UIAlertAction* lastMonth = [UIAlertAction actionWithTitle:@"✓ Last 30 Days" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self changeView:2];
+                                                              
+                                                          }];
+        
+        UIAlertAction* lastYear = [UIAlertAction actionWithTitle:@"Past Year (Major Quakes)" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             
+                                                             [self changeView:3];
+                                                             
+                                                         }];
+        
+        [newController addAction:today];
+        [newController addAction:lastMonth];
+        [newController addAction:lastYear];
+        [newController addAction:cancel];
+        
          NSDate *date = [calendar dateByAddingComponents:compsMonth toDate:[NSDate date] options:0];
         [parser editHistory:[dateFormatter stringFromDate:date]];
         [parser editMagnitudes:@"1"];
@@ -244,13 +292,40 @@
         
     } else {
         //view earthquakes from the past year
+        
+        UIAlertAction* today = [UIAlertAction actionWithTitle:@"Today" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          
+                                                          [self changeView:1];
+                                                          
+                                                      }];
+        
+        UIAlertAction* lastMonth = [UIAlertAction actionWithTitle:@"Last 30 Days" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self changeView:2];
+                                                              
+                                                          }];
+        
+        UIAlertAction* lastYear = [UIAlertAction actionWithTitle:@"✓ Past Year (Major Quakes)" style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * action) {
+                                                             
+                                                             [self changeView:3];
+                                                             
+                                                         }];
+        
+        [newController addAction:today];
+        [newController addAction:lastMonth];
+        [newController addAction:lastYear];
+        [newController addAction:cancel];
+        
         NSLog(@"wants to see past major quakes");
         NSDate *date = [calendar dateByAddingComponents:compsYear toDate:[NSDate date] options:0];
         [parser editHistory:[dateFormatter stringFromDate:date]];
         [parser editMagnitudes:@"5"];
         
     }
-    
+    _actionSheet = newController;
     [parser fetchEarthquakeData];
     
     

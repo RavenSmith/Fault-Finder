@@ -27,6 +27,37 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    _actionSheet = [UIAlertController alertControllerWithTitle:@"Order Earthquakes By" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction*mag = [UIAlertAction actionWithTitle:@"Largest Magnitude" style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   
+                                                   [self changeView:1];
+                                                   
+                                               }];
+    
+    UIAlertAction* time = [UIAlertAction actionWithTitle:@"✓ Most Recent" style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * action) {
+                                                     
+                                                     [self changeView:2];
+                                                     
+                                                 }];
+    
+    UIAlertAction* proximity = [UIAlertAction actionWithTitle:@"Proximity" style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * action) {
+                                                          
+                                                          [self changeView:3];
+                                                          
+                                                      }];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action) {}];
+    
+    [_actionSheet addAction:proximity];
+    [_actionSheet addAction:mag];
+    [_actionSheet addAction:time];
+    [_actionSheet addAction:cancel];
+    
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
     
@@ -129,48 +160,48 @@
 
 
 - (IBAction)actionBtnPressed:(UIBarButtonItem *)sender {
-    UIAlertController* actionSheet = [UIAlertController alertControllerWithTitle:@"Order Earthquakes By" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction* mag = [UIAlertAction actionWithTitle:@"Largest Magnitude" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                              
-                                                              [self changeView:1];
-                                                          
-                                                          }];
-    
-    UIAlertAction* time = [UIAlertAction actionWithTitle:@"Most Recent" style:UIAlertActionStyleDefault
-                                                          handler:^(UIAlertAction * action) {
-                                                          
-                                                              [self changeView:2];
-                                                          
-                                                          }];
-    
-    UIAlertAction* proximity = [UIAlertAction actionWithTitle:@"Proximity" style:UIAlertActionStyleDefault
-                                                 handler:^(UIAlertAction * action) {
-                                                     
-                                                     [self changeView:3];
-                                                     
-                                                 }];
-    
-    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                 handler:^(UIAlertAction * action) {}];
-    
-    [actionSheet addAction:proximity];
-    [actionSheet addAction:mag];
-    [actionSheet addAction:time];
-    [actionSheet addAction:cancel];
-    
-    [self presentViewController:actionSheet animated:YES completion:nil];
-
+    [self presentViewController:_actionSheet animated:YES completion:nil];
     
 }
 
 -(void) changeView: (int) option {
     
-    //[_waiting startAnimating];
+    UIAlertController* newController = [UIAlertController alertControllerWithTitle:@"Order Earthquakes By" message:@"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * action) {}];
     
     EarthquakeDataParser *sharedEarthquakeDataParser = [EarthquakeDataParser sharedEarthquakeDataParser];
     if (option == 1) {
+        
+        
+        UIAlertAction*mag = [UIAlertAction actionWithTitle:@"✓ Largest Magnitude" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       
+                                                       [self changeView:1];
+                                                       
+                                                   }];
+        UIAlertAction* time = [UIAlertAction actionWithTitle:@"Most Recent" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+                                                         
+                                                         [self changeView:2];
+                                                         
+                                                     }];
+        
+        UIAlertAction* proximity = [UIAlertAction actionWithTitle:@"Proximity" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self changeView:3];
+                                                              
+                                                          }];
+        
+        [newController addAction:proximity];
+        [newController addAction:mag];
+        [newController addAction:time];
+        [newController addAction:cancel];
+        _actionSheet = newController;
+    
        
         [sharedEarthquakeDataParser editParams:@"magnitude"];
         [sharedEarthquakeDataParser fetchEarthquakeData];
@@ -179,14 +210,68 @@
         
     } else if (option == 2) {
         
+        UIAlertAction*mag = [UIAlertAction actionWithTitle:@"Largest Magnitude" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       
+                                                       [self changeView:1];
+                                                       
+                                                   }];
+        
+        UIAlertAction* time = [UIAlertAction actionWithTitle:@"✓ Most Recent" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+                                                         
+                                                         [self changeView:2];
+                                                         
+                                                     }];
+        
+        UIAlertAction* proximity = [UIAlertAction actionWithTitle:@"Proximity" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self changeView:3];
+                                                              
+                                                          }];
+        [newController addAction:proximity];
+        [newController addAction:mag];
+        [newController addAction:time];
+        [newController addAction:cancel];
+        _actionSheet = newController;
+        
+        
         [sharedEarthquakeDataParser editParams:@"time"];
         [sharedEarthquakeDataParser fetchEarthquakeData];
 
         
     } else {
         
+        UIAlertAction*mag = [UIAlertAction actionWithTitle:@"Largest Magnitude" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       
+                                                       [self changeView:1];
+                                                       
+                                                   }];
+        
+        UIAlertAction* time = [UIAlertAction actionWithTitle:@"Most Recent" style:UIAlertActionStyleDefault
+                                                     handler:^(UIAlertAction * action) {
+                                                         
+                                                         [self changeView:2];
+                                                         
+                                                     }];
+        
+        UIAlertAction* proximity = [UIAlertAction actionWithTitle:@"✓ Proximity" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              
+                                                              [self changeView:3];
+                                                              
+                                                          }];
+        [newController addAction:proximity];
+        [newController addAction:mag];
+        [newController addAction:time];
+        [newController addAction:cancel];
+        _actionSheet = newController;
+        
         [self sortQuakesByProximity];
     }
+    
     
 }
 
